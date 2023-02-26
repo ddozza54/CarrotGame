@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+    <script src="https://kit.fontawesome.com/25e4b1ba71.js" crossorigin="anonymous"></script>
+    <title>Corrot Game</title>
+</head>
+
+<body>
+    <div class='gameScreen'>
+        <div class='controlBox'>
+            <button class='controlBox_playBtn'>
+                <span>
+                    <i class="fa-solid fa-play"></i>
+                </span>
+                <!--<span>
+                    <i class="fa-solid fa-square"></i>
+                </span>-->
+            </button>
+            <div class='controlBox_time'>
+                <span class='controlBox_time_text'>0:10</span>
+            </div>
+            <div class='controlBox_carrotCount'>
+                <span class='controlBox_carrotCount_num'>10</span>
+            </div>
+        </div>
+        <div class='playBox'>
+            <div class='lostBox'>
+                <button class='lostBox_btn'>
+                    <span>
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </span>
+                </button>
+                <span class='lostBox_text'>You Lost</span>
+            </div>
+            <div class='carrots'>
+                <img class='carrotImg' src='./img/carrot.png'>
+            </div>
+            <div class='bugs'>
+                <img class='bugImg' src='./img/bug.png'>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
