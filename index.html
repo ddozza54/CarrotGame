@@ -6,21 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js"></script>
-    <script src="https://kit.fontawesome.com/25e4b1ba71.js" crossorigin="anonymous"></script>
+    <script defer src="./app.js"></script>
     <title>Corrot Game</title>
 </head>
 
 <body>
     <div class='gameScreen'>
         <div class='controlBox'>
-            <button class='controlBox_playBtn'>
-                <span>
+            <button class='playBtn'>
+                <span class=>
                     <i class="fa-solid fa-play"></i>
                 </span>
-                <!--<span>
+            </button>
+            <button class='pauseBtn invisible'>
+                <span>
                     <i class="fa-solid fa-square"></i>
-                </span>-->
+                </span>
             </button>
             <div class='controlBox_time'>
                 <span class='controlBox_time_text'>0:10</span>
@@ -36,17 +37,19 @@
                         <i class="fa-solid fa-rotate-right"></i>
                     </span>
                 </button>
-                <span class='lostBox_text'>You Lost</span>
+                <span class='lostBox_message'>You Lost</span>
             </div>
-            <div class='carrots'>
+            <div class='carrots gameItem'>
                 <img class='carrotImg' src='./img/carrot.png'>
             </div>
-            <div class='bugs'>
+            <div class='bugs gameItem'>
                 <img class='bugImg' src='./img/bug.png'>
             </div>
         </div>
     </div>
 
+    <script src="https://kit.fontawesome.com/25e4b1ba71.js" crossorigin="anonymous"></script>
 </body>
+
 
 </html>

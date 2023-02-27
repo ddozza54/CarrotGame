@@ -7,12 +7,20 @@ body {
     height: 100vh;
 }
 
+.invisible {
+    display: none;
+}
+
 button {
     width: 100px;
     height: 100px;
     border: 5px solid black;
     border-radius: 20px;
     background-color: antiquewhite;
+}
+
+button:hover {
+    transform: scale(1.1, 1.1);
 }
 
 button span {
@@ -94,13 +102,17 @@ button span {
     margin-top: 20px;
 }
 
-.lostBox_text {
+.lostBox_message {
     font-size: 50px;
     color: whitesmoke;
     padding: 20px;
 }
 
-.carrots,
-.bugs {
+.gameItem {
     position: absolute;
+
+}
+
+.gameItem:hover {
+    transform: scale(1.1, 1.1);
 }
