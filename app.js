@@ -3,6 +3,8 @@ const pauseBtn = document.querySelector(".pauseBtn")
 const countDownText = document.querySelector(".controlBox_time_text");
 const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
 const replayBtn = document.querySelector(".replayBtn");
+const musicBtn = document.querySelector(".musicBtn");
+const musicBtnIcon = musicBtn.querySelector("i");
 
 const playBox = document.querySelector(".playBox");
 const lostBox = document.querySelector(".lostBox");
@@ -11,11 +13,17 @@ const gameOverBox = document.querySelector(".gameOverBox");
 const carrots = document.querySelector(".carrots");
 const bugs = document.querySelector(".bugs");
 
+const bgSound = new Audio("./sound/bg.mp3");
+const carrotSound = new Audio("./sound/carrot_pull.mp3");
+const bugSound = new Audio("./sound/bug_pull.mp3");
+const winSound = new Audio("./sound/game_win.mp3");
+const lostSound = new Audio("./sound/alert.wav");
+
 const ITEM_SIZE = 50;
 const SECONDS = 5;
 
 let isBugExisting = false;
-let isPlaying = false;
+let isMusicPlaying = false;
 
 let carrotCount = 0;
 let carrotDivs = [];
@@ -149,6 +157,7 @@ const gameOver = () => {
 }
 
 const onClickPauseBtn = () => {
+    lostSound.play();
     gameOver();
 }
 
@@ -156,6 +165,7 @@ const onClickPauseBtn = () => {
 const handleCarrotClick = (event) => {
     const clickedCarrot = event.target;
     document.getElementById(`${clickedCarrot.id}`).remove();
+    carrotSound.play();
 
     //carrot 클릭시 해당 carrotDiv carrots에서 제거 
     // const clikedCarrotId = carrot.id;
@@ -164,6 +174,7 @@ const handleCarrotClick = (event) => {
     carrotCountText.innerText = `${carrotCount}`;
     if (carrotCount == 10) {
         winBox.classList.remove("invisible");
+        winSound.play();
         gameOver();
     }
 }
@@ -173,13 +184,27 @@ const handleBugClick = () => {
     //플레이 버튼으로 바뀜
     pauseBtn.classList.add("invisible");
     playBtn.classList.remove("invisible");
-
+    bugSound.play();
 }
 
 const handleReplay = () => {
     gameOver();
-    //기존에 있던 bugs, carrots 삭제
+}
 
+const musicPlay = () => {
+    if (isMusicPlaying) {
+        isMusicPlaying = false;
+        musicBtnIcon.classList.remove("fa-volume-xmark");
+        musicBtnIcon.classList.add("fa-music");
+        console.log(isMusicPlaying);
+        bgSound.pause();
+    } else {
+        bgSound.play();
+        musicBtnIcon.classList.remove("fa-music");
+        musicBtnIcon.classList.add("fa-volume-xmark");
+        isMusicPlaying = true;
+        console.log(isMusicPlaying);
+    }
 }
 
 playBtn.addEventListener("click", onClickPlayBtn);
@@ -188,3 +213,4 @@ pauseBtn.addEventListener("click", onClickPauseBtn);
 
 bugs.addEventListener("click", handleBugClick);
 carrots.addEventListener("click", handleCarrotClick);
+musicBtn.addEventListener("click", musicPlay);
