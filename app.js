@@ -6,6 +6,7 @@ const replayBtn = document.querySelector(".lostBox_btn");
 
 const playBox = document.querySelector(".playBox");
 const lostBox = document.querySelector(".lostBox");
+const gameOverBox = document.querySelector(".gameOverBox");
 const carrots = document.querySelector(".carrots");
 const bugs = document.querySelector(".bugs");
 
@@ -15,16 +16,20 @@ let carrotCount = 0;
 let carrotDivs = [];
 let carrotId = "";
 
+let seconds = 10;
+
 const ITEM_SIZE = 50;
 
+
 const countDownFn = () => {
-    let seconds = 10;
-    seconds -= 1;
-    countDownText.innerText = `0:${seconds}`;
+    if (seconds > 0) {
+        seconds -= 1;
+        countDownText.innerText = `0:${seconds}`;
+    } else {
+        gameOver();
+    }
+
 }
-setInterval(countDownFn(), 1000);
-
-
 
 const playBoxRandomRange = () => {
     //랜덤으로 carrot, bugs 추가
@@ -106,7 +111,6 @@ const createGameItems = () => {
     createBugs();
 }
 
-
 const onClickPlayBtn = () => {
     //정지버튼으로 바뀜
     playBtn.classList.add("invisible");
@@ -124,6 +128,7 @@ const onClickPlayBtn = () => {
         isBugExisting = true;
     }
     //시간 카운트다운 스타트
+    setInterval(countDownFn, 1000);
 }
 
 
@@ -135,11 +140,12 @@ const gameOver = () => {
 
     //lost 메세지
     lostBox.classList.remove("invisible");
+    //게임요소 클릭 불가
+    gameOverBox.classList.remove("invisible");
 }
 
 const onClickPauseBtn = () => {
     gameOver();
-
 }
 
 
@@ -152,8 +158,11 @@ const handleCarrotClick = (event) => {
     // carrots.removeChild(`#${clikedCarrotId}`);
     carrotCount++;
     carrotCountText.innerText = `${carrotCount}`;
-    if(carrotCount===10){
-        
+    if (carrotCount == 10) {
+        const lostBox_text = document.querySelector(".lostBox_message");
+        lostBox_text.innerText = "You Won! 🎉"
+        lostBox.classList.remove("invisible");
+        gameOver();
     }
 }
 

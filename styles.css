@@ -88,6 +88,14 @@ button span {
     align-items: center;
 }
 
+.gameOverBox {
+    width: 90%;
+    height: 45%;
+    opacity: 0;
+    z-index: 9;
+    position: absolute;
+}
+
 .lostBox {
     width: 600px;
     height: 250px;
