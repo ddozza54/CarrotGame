@@ -2,6 +2,7 @@ const playBtn = document.querySelector(".playBtn");
 const pauseBtn = document.querySelector(".pauseBtn")
 const countDownText = document.querySelector(".controlBox_time_text");
 const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
+const replayBtn = document.querySelector(".lostBox_btn");
 
 const playBox = document.querySelector(".playBox");
 const lostBox = document.querySelector(".lostBox");
@@ -90,6 +91,17 @@ const createBugs = () => {
 
 }
 
+const removeGameItems = (divs) => {
+    while (divs.firstChild) {
+        divs.removeChild(divs.firstChild);
+    }
+}
+
+const createGameItems = () => {
+    createCarrots();
+    createBugs();
+}
+
 
 const onClickPlayBtn = () => {
     //정지버튼으로 바뀜
@@ -99,14 +111,13 @@ const onClickPlayBtn = () => {
     console.log(isBugExisting);
     //게임 item 생성
     if (!isBugExisting) {
-        createCarrots();
-        createBugs();
+        createGameItems();
         isBugExisting = true;
     } else {
-        while (bugs.firstChild) {
-            bugs.removeChild(bugs.firstChild);
-        }
-        isBugExisting = false;
+        removeGameItems(bugs);
+        removeGameItems(carrots);
+        createGameItems();
+        isBugExisting = true;
     }
     //시간 카운트다운 스타트
 }
@@ -150,6 +161,8 @@ const handleReplay = () => {
 }
 
 playBtn.addEventListener("click", onClickPlayBtn);
+replayBtn.addEventListener("click", onClickPlayBtn);
 pauseBtn.addEventListener("click", onClickPauseBtn);
+
 bugs.addEventListener("click", handleBugClick);
 carrots.addEventListener("click", handleCarrotClick);
