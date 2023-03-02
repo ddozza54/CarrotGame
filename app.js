@@ -3,8 +3,10 @@ const pauseBtn = document.querySelector(".pauseBtn")
 const countDownText = document.querySelector(".controlBox_time_text");
 const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
 
-const carrot = document.querySelector(".carrots");
-const bug = document.querySelector(".bugs");
+const playBox = document.querySelector(".playBox");
+const lostBox = document.querySelector(".lostBox");
+const carrots = document.querySelector(".carrots");
+const bugs = document.querySelector(".bugs");
 
 
 let carrotCount = 0;
@@ -14,14 +16,86 @@ const countDownFn = () => {
     seconds -= 1;
     countDownText.innerText = `0:${seconds}`;
 }
-//?
-setInterval(countDownFn, 1000);
+setInterval(countDownFn(), 1000);
 
+
+
+const playBoxRandomRange = () => {
+    //랜덤으로 carrot, bugs 추가
+    //play Box 내에서 랜덤으로 (x, y) 좌표 추출
+    //left = x
+    // top = y
+    // right = x + width
+    // bottom = y + height
+    const playBoxX_min = Number(Math.ceil(playBox.getBoundingClientRect().x));
+    const playBoxX_max = Number(Math.floor(playBox.getBoundingClientRect().right));
+
+    const playBoxY_min = Number(Math.ceil(playBox.getBoundingClientRect().y));
+    const playBoxY_max = Number(Math.floor(playBox.getBoundingClientRect().bottom));
+
+    let xRandom = [];
+    let yRandom = [];
+    let cordinate = [];
+    // 랜덤으로 (x, y) 10 개 생성하기
+    for (let i = 0; i < 10; i++) {
+        xRandom.push(Math.floor(Math.random() * (playBoxX_max - playBoxX_min) + playBoxX_min));
+        yRandom.push(Math.floor(Math.random() * (playBoxY_max - playBoxY_min) + playBoxY_min));
+        cordinate.push([xRandom[i], yRandom[i]]);
+    }
+    return cordinate;
+}
+
+const createCarrots = () => {
+    //당근 10개 만들기
+    for (let i = 0; i < 10; i++) {
+        //당근 div
+        const carrotDiv = document.createElement("div");
+        carrotDiv.setAttribute("class", "carrotDiv");
+        carrotDiv.classList.add("gameItem");
+        playBox.appendChild(carrots);
+        //당근 img
+        const carrotImg = document.createElement("img");
+        carrotImg.src = "./img/carrot.png";
+        carrotDiv.appendChild(carrotImg);
+        // 랜덤 범위 생성
+        const carrotRangeArray = playBoxRandomRange();
+        // 좌표 위치에 당근 복사하기 
+        carrotDiv.style.left = carrotRangeArray[i][0] + "px";
+        carrotDiv.style.top = carrotRangeArray[i][1] + "px";
+
+        carrots.appendChild(carrotDiv);
+    }
+}
+const createBugs = () => {
+    for (let i = 0; i < 10; i++) {
+        //당근 div
+        const bugDiv = document.createElement("div");
+        bugDiv.setAttribute("class", "bugDiv");
+        bugDiv.classList.add("gameItem");
+        playBox.appendChild(bugs);
+        //당근 img
+        const bugImg = document.createElement("img");
+        bugImg.src = "./img/bug.png";
+        bugDiv.appendChild(bugImg);
+        // 랜덤 범위 생성
+        const bugRangeArray = playBoxRandomRange();
+        // 좌표 위치에 당근 복사하기 
+        bugDiv.style.left = bugRangeArray[i][0] + "px";
+        bugDiv.style.top = bugRangeArray[i][1] + "px";
+
+        bugs.appendChild(bugDiv);
+    }
+}
 const onClickPlayBtn = () => {
     //정지버튼으로 바뀜
     playBtn.classList.add("invisible");
     pauseBtn.classList.remove("invisible");
-    //랜덤으로 carrot, bugs 추가 
+
+    lostBox.classList.add("invisible");
+
+    //게임 item 생성
+    createCarrots();
+    createBugs();
     //카운트다운 스타트
 
 }
@@ -31,16 +105,17 @@ const onClickPauseBtn = () => {
     pauseBtn.classList.add("invisible");
     playBtn.classList.remove("invisible");
     //시간 멈춤
-    //다시하기 + replay?
+
+    lostBox.classList.remove("invisible");
 }
 
 
 const handleCarrotClick = () => {
-    carrot.classList.add("invisible");
+    carrots.classList.add("invisible");
     carrotCount++;
     carrotCountText.innerText = `${carrotCount}`;
 }
 
 playBtn.addEventListener("click", onClickPlayBtn);
 pauseBtn.addEventListener("click", onClickPauseBtn);
-carrot.addEventListener("click", handleCarrotClick)
+carrots.addEventListener("click", handleCarrotClick)
