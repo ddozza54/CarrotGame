@@ -10,6 +10,7 @@ const bugs = document.querySelector(".bugs");
 
 
 let carrotCount = 0;
+let carrotDivs = [];
 
 const countDownFn = () => {
     let seconds = 10;
@@ -53,6 +54,7 @@ const createCarrots = () => {
         carrotDiv.setAttribute("class", "carrotDiv");
         carrotDiv.classList.add("gameItem");
         playBox.appendChild(carrots);
+        carrotDivs.push(carrotDiv);
         //당근 img
         const carrotImg = document.createElement("img");
         carrotImg.src = "./img/carrot.png";
@@ -62,7 +64,6 @@ const createCarrots = () => {
         // 좌표 위치에 당근 복사하기 
         carrotDiv.style.left = carrotRangeArray[i][0] + "px";
         carrotDiv.style.top = carrotRangeArray[i][1] + "px";
-
         carrots.appendChild(carrotDiv);
     }
 }
@@ -85,18 +86,18 @@ const createBugs = () => {
 
         bugs.appendChild(bugDiv);
     }
+
 }
+
 const onClickPlayBtn = () => {
     //정지버튼으로 바뀜
     playBtn.classList.add("invisible");
     pauseBtn.classList.remove("invisible");
-
     lostBox.classList.add("invisible");
-
     //게임 item 생성
     createCarrots();
     createBugs();
-    //카운트다운 스타트
+    //시간 카운트다운 스타트
 
 }
 
@@ -110,12 +111,20 @@ const onClickPauseBtn = () => {
 }
 
 
+
 const handleCarrotClick = () => {
-    carrots.classList.add("invisible");
+    //carrot 에게 id 필요
+    carrotDivs.map(div => div.classList.add("invisible"));
     carrotCount++;
     carrotCountText.innerText = `${carrotCount}`;
 }
 
+const handleBugClick = () => {
+    lostBox.classList.remove("invisible");
+
+}
+
 playBtn.addEventListener("click", onClickPlayBtn);
 pauseBtn.addEventListener("click", onClickPauseBtn);
-carrots.addEventListener("click", handleCarrotClick)
+bugs.addEventListener("click", handleBugClick);
+carrots.addEventListener("click", handleCarrotClick);
