@@ -96,6 +96,7 @@ button span {
     position: absolute;
 }
 
+.winBox,
 .lostBox {
     width: 600px;
     height: 250px;
@@ -106,7 +107,7 @@ button span {
     z-index: 10;
 }
 
-.lostBox_btn {
+.replayBtn {
     margin-top: 20px;
 }
 

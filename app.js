@@ -2,33 +2,35 @@ const playBtn = document.querySelector(".playBtn");
 const pauseBtn = document.querySelector(".pauseBtn")
 const countDownText = document.querySelector(".controlBox_time_text");
 const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
-const replayBtn = document.querySelector(".lostBox_btn");
+const replayBtn = document.querySelector(".replayBtn");
 
 const playBox = document.querySelector(".playBox");
 const lostBox = document.querySelector(".lostBox");
+const winBox = document.querySelector(".winBox");
 const gameOverBox = document.querySelector(".gameOverBox");
 const carrots = document.querySelector(".carrots");
 const bugs = document.querySelector(".bugs");
 
+const ITEM_SIZE = 50;
+const SECONDS = 5;
+
 let isBugExisting = false;
+let isPlaying = false;
 
 let carrotCount = 0;
 let carrotDivs = [];
 let carrotId = "";
 
-let seconds = 10;
+let seconds = SECONDS;
 
-const ITEM_SIZE = 50;
-
+// const minusSeconds = () => {
+//     seconds -= 1;
+//     countDownText.innerText = `0:${seconds}`;
+// }
+// const intervalFn = setInterval(minusSeconds, 1000);
 
 const countDownFn = () => {
-    if (seconds > 0) {
-        seconds -= 1;
-        countDownText.innerText = `0:${seconds}`;
-    } else {
-        gameOver();
-    }
-
+    seconds <= 0 ? clearInterval(intervalFn) : intervalFn;
 }
 
 const playBoxRandomRange = () => {
@@ -112,6 +114,7 @@ const createGameItems = () => {
 }
 
 const onClickPlayBtn = () => {
+    isPlaying = true;
     //정지버튼으로 바뀜
     playBtn.classList.add("invisible");
     pauseBtn.classList.remove("invisible");
@@ -128,20 +131,21 @@ const onClickPlayBtn = () => {
         isBugExisting = true;
     }
     //시간 카운트다운 스타트
-    setInterval(countDownFn, 1000);
+    seconds = SECONDS;
+    countDownFn();
 }
 
 
 const gameOver = () => {
+    isPlaying = false;
     //플레이 버튼으로 바뀜
     pauseBtn.classList.add("invisible");
     playBtn.classList.remove("invisible");
-    //시간 멈춤
-
     //lost 메세지
     lostBox.classList.remove("invisible");
     //게임요소 클릭 불가
     gameOverBox.classList.remove("invisible");
+    seconds = 0;
 }
 
 const onClickPauseBtn = () => {
@@ -159,9 +163,7 @@ const handleCarrotClick = (event) => {
     carrotCount++;
     carrotCountText.innerText = `${carrotCount}`;
     if (carrotCount == 10) {
-        const lostBox_text = document.querySelector(".lostBox_message");
-        lostBox_text.innerText = "You Won! 🎉"
-        lostBox.classList.remove("invisible");
+        winBox.classList.remove("invisible");
         gameOver();
     }
 }
