@@ -81,7 +81,8 @@ button span {
 
 .playBox {
     width: 90%;
-    height: 50%;
+    height: 45%;
+    margin: 15px 0;
     display: flex;
     justify-content: center;
     align-items: center;

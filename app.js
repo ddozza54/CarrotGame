@@ -13,6 +13,9 @@ let isBugExisting = false;
 
 let carrotCount = 0;
 let carrotDivs = [];
+let carrotId = "";
+
+const ITEM_SIZE = 50;
 
 const countDownFn = () => {
     let seconds = 10;
@@ -30,11 +33,11 @@ const playBoxRandomRange = () => {
     // top = y
     // right = x + width
     // bottom = y + height
-    const playBoxX_min = Number(Math.ceil(playBox.getBoundingClientRect().x));
-    const playBoxX_max = Number(Math.floor(playBox.getBoundingClientRect().right));
+    const playBoxX_min = Number(Math.ceil(playBox.getBoundingClientRect().x)) + ITEM_SIZE;
+    const playBoxX_max = Number(Math.floor(playBox.getBoundingClientRect().right)) - ITEM_SIZE;
 
-    const playBoxY_min = Number(Math.ceil(playBox.getBoundingClientRect().y));
-    const playBoxY_max = Number(Math.floor(playBox.getBoundingClientRect().bottom));
+    const playBoxY_min = Number(Math.ceil(playBox.getBoundingClientRect().y)) + ITEM_SIZE;
+    const playBoxY_max = Number(Math.floor(playBox.getBoundingClientRect().bottom)) - ITEM_SIZE;
 
     let xRandom = [];
     let yRandom = [];
@@ -67,6 +70,7 @@ const createCarrots = () => {
         carrotDiv.style.left = carrotRangeArray[i][0] + "px";
         carrotDiv.style.top = carrotRangeArray[i][1] + "px";
         carrots.appendChild(carrotDiv);
+        carrotImg.setAttribute("id", `${carrotRangeArray[i][0]}`);
     }
 }
 const createBugs = () => {
@@ -139,11 +143,18 @@ const onClickPauseBtn = () => {
 }
 
 
-const handleCarrotClick = () => {
-    //carrot 에게 id 필요
-    carrotDivs.map(div => div.classList.add("invisible"));
+const handleCarrotClick = (event) => {
+    const clickedCarrot = event.target;
+    document.getElementById(`${clickedCarrot.id}`).remove();
+
+    //carrot 클릭시 해당 carrotDiv carrots에서 제거 
+    // const clikedCarrotId = carrot.id;
+    // carrots.removeChild(`#${clikedCarrotId}`);
     carrotCount++;
     carrotCountText.innerText = `${carrotCount}`;
+    if(carrotCount===10){
+        
+    }
 }
 
 const handleBugClick = () => {
