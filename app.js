@@ -37,9 +37,9 @@ let seconds = SECONDS;
 // }
 // const intervalFn = setInterval(minusSeconds, 1000);
 
-const countDownFn = () => {
-    seconds <= 0 ? clearInterval(intervalFn) : intervalFn;
-}
+// const countDownFn = () => {
+//     seconds <= 0 ? clearInterval(intervalFn) : intervalFn;
+// }
 
 const playBoxRandomRange = () => {
     //랜덤으로 carrot, bugs 추가
@@ -140,7 +140,7 @@ const onClickPlayBtn = () => {
     }
     //시간 카운트다운 스타트
     seconds = SECONDS;
-    countDownFn();
+    // countDownFn();
 }
 
 
@@ -185,6 +185,7 @@ const handleBugClick = () => {
     pauseBtn.classList.add("invisible");
     playBtn.classList.remove("invisible");
     bugSound.play();
+    gameOver();
 }
 
 const handleReplay = () => {
