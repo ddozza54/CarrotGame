@@ -57,19 +57,17 @@ const changePlayBtn = () => {
 
 const createItems = (itemName, itemDivs, itmes) => {
     for (let i = 0; i < 10; i++) {
-        const itemDiv = document.createElement("div");
-        itemDiv.setAttribute("class", `${itemName}`);
-        itemDiv.classList.add("gameItem");
-        playBox.appendChild(itmes);
-        itemDivs.push(itemDiv);
         const itemImg = document.createElement("img");
         itemImg.src = `./img/${itemName}.png`;
-        itemDiv.appendChild(itemImg);
+        itemImg.setAttribute("class", `${itemName}`);
+        itemImg.classList.add("gameItem");
+        playBox.appendChild(itmes);
+        itemDivs.push(itemImg);
         const itemRangeArray = randomRange();
-        // 좌표 위치에 당근 복사하기 
-        itemDiv.style.left = itemRangeArray[i][0] + "px";
-        itemDiv.style.top = itemRangeArray[i][1] + "px";
-        itmes.appendChild(itemDiv);
+        // 좌표 위치에 item 복사하기 
+        itemImg.style.left = itemRangeArray[i][0] + "px";
+        itemImg.style.top = itemRangeArray[i][1] + "px";
+        itmes.appendChild(itemImg);
     }
 }
 
@@ -122,6 +120,7 @@ const onClickPauseBtn = () => {
 
 
 const onFieldClick = (event) => {
+    console.log(event.target);
     if (!isPlaying) {
         return;
     }
