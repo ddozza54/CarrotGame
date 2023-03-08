@@ -8,7 +8,6 @@ const musicBtnIcon = musicBtn.querySelector("i");
 
 const playBox = document.querySelector(".playBox");
 const messageBox = document.querySelector(".messageBox");
-const gameOverBox = document.querySelector(".gameOverBox");
 const carrots = document.querySelector(".carrots");
 const bugs = document.querySelector(".bugs");
 
@@ -35,22 +34,19 @@ let seconds = SECONDS;  //?
 
 
 //게임 시작
-
 const gameStart = () => {
-    !isPlaying; //true
     changePlayBtn();
-    //벌레, 당근 생성
-    if (!isBugExisting) {
-        createItems('carrot', carrotDivs, carrots);
-        createItems('bug', bugDivs, bugs);
-        !isBugExisting;
-    } else {
-        carrots.innerHTML = "";
-        bugs.innerHTML = "";
-    }
-    gameOverBox.classList.add("invisible");
+    gameInit();
 
     //카운트 다운 시작
+}
+
+//게임 환경 조성
+const gameInit = () => {
+    carrots.innerHTML = "";
+    bugs.innerHTML = "";
+    createItems('carrot', carrotDivs, carrots);
+    createItems('bug', bugDivs, bugs);
 }
 
 const changePlayBtn = () => {
@@ -59,11 +55,10 @@ const changePlayBtn = () => {
     messageBox.classList.add("invisible");
 }
 
-
 const createItems = (itemName, itemDivs, itmes) => {
     for (let i = 0; i < 10; i++) {
         const itemDiv = document.createElement("div");
-        itemDiv.setAttribute("class", `${itemName}Div`);
+        itemDiv.setAttribute("class", `${itemName}`);
         itemDiv.classList.add("gameItem");
         playBox.appendChild(itmes);
         itemDivs.push(itemDiv);
@@ -75,7 +70,6 @@ const createItems = (itemName, itemDivs, itmes) => {
         itemDiv.style.left = itemRangeArray[i][0] + "px";
         itemDiv.style.top = itemRangeArray[i][1] + "px";
         itmes.appendChild(itemDiv);
-        itemImg.setAttribute("id", `${itemRangeArray[i][0]}`);
     }
 }
 
@@ -112,7 +106,6 @@ const gameOver = () => {
         messageBox_text.innerText = "You Lost! 😞";
         lostSound.play();
     }
-    gameOverBox.classList.remove("invisible");
 
 }
 
@@ -128,20 +121,34 @@ const onClickPauseBtn = () => {
 
 
 
+const onFieldClick = (event) => {
+    if (!isPlaying) {
+        return;
+    }
+    const target = event.target;
+    if (target.matches(".carrot")) {
+        console.log("당근!");
+        carrotSound.play();
+        carrot_catched++;
+        carrotCountText.innerText = `${carrot_catched}`;
+        if (carrot_catched == CARROT_COUNT) {
+            gameOver();
+        }
+    } else if (target.matches(".bug")) {
+        console.log("bug!");
+    }
+}
+
+
+
 
 ////////////// 리펙토링 1차
 
 const handleCarrotClick = (event) => {
-    const clickedCarrot = event.target;
-    document.getElementById(`${clickedCarrot.id}`).remove();
     carrotSound.play();
-
-    //carrot 클릭시 해당 carrotDiv carrots에서 제거 
-    // const clikedCarrotId = carrot.id;
-    // carrots.removeChild(`#${clikedCarrotId}`);
     carrot_catched++;
     carrotCountText.innerText = `${carrot_catched}`;
-    if (carrot_catched == 10) {
+    if (carrot_catched == CARROT_COUNT) {
         gameOver();
     }
 }
@@ -178,6 +185,5 @@ playBtn.addEventListener("click", gameStart);
 replayBtn.addEventListener("click", gameStart);
 pauseBtn.addEventListener("click", onClickPauseBtn);
 
-bugs.addEventListener("click", handleBugClick);
-carrots.addEventListener("click", handleCarrotClick);
+playBox.addEventListener("click", onFieldClick);
 musicBtn.addEventListener("click", musicPlay);
