@@ -38,7 +38,7 @@ const gameStart = () => {
     changePlayBtn();
     gameInit();
     isPlaying = true;
-
+    carrotCountText.innerText = `${carrot_catched = 0}`;
     //카운트 다운 시작
 }
 
@@ -127,26 +127,24 @@ const onFieldClick = (event) => {
     const target = event.target;
     if (target.matches(".carrot")) {
         console.log("당근!");
-        target.remove();
         carrotSound.play();
         carrot_catched++;
         carrotCountText.innerText = `${carrot_catched}`;
-        if (carrot_catched == CARROT_COUNT) {
+        target.remove();
+        if (carrot_catched >= CARROT_COUNT) {
             gameOver();
         }
     } else if (target.matches(".bug")) {
         console.log("bug!");
+        bugSound.play();
+        gameOver();
+        target.remove();
     }
 }
 
 
 
 const handleBugClick = () => {
-    //플레이 버튼으로 바뀜
-    pauseBtn.classList.add("invisible");
-    playBtn.classList.remove("invisible");
-    bugSound.play();
-    gameOver();
 }
 
 const handleReplay = () => {
