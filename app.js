@@ -37,6 +37,7 @@ let seconds = SECONDS;  //?
 const gameStart = () => {
     changePlayBtn();
     gameInit();
+    isPlaying = true;
 
     //카운트 다운 시작
 }
@@ -56,7 +57,7 @@ const changePlayBtn = () => {
 }
 
 const createItems = (itemName, itemDivs, itmes) => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < CARROT_COUNT; i++) {
         const itemImg = document.createElement("img");
         itemImg.src = `./img/${itemName}.png`;
         itemImg.setAttribute("class", `${itemName}`);
@@ -120,13 +121,13 @@ const onClickPauseBtn = () => {
 
 
 const onFieldClick = (event) => {
-    console.log(event.target);
     if (!isPlaying) {
         return;
     }
     const target = event.target;
     if (target.matches(".carrot")) {
         console.log("당근!");
+        target.remove();
         carrotSound.play();
         carrot_catched++;
         carrotCountText.innerText = `${carrot_catched}`;
@@ -139,18 +140,6 @@ const onFieldClick = (event) => {
 }
 
 
-
-
-////////////// 리펙토링 1차
-
-const handleCarrotClick = (event) => {
-    carrotSound.play();
-    carrot_catched++;
-    carrotCountText.innerText = `${carrot_catched}`;
-    if (carrot_catched == CARROT_COUNT) {
-        gameOver();
-    }
-}
 
 const handleBugClick = () => {
     //플레이 버튼으로 바뀜

@@ -148,12 +148,14 @@ button span {
     height: 100%;
 }
 
-.gameItem {
+.bug,
+.carrot {
     position: absolute;
 
 }
 
-.gameItem:hover {
+.bug:hover,
+.carrot:hover {
     transform: scale(1.1, 1.1);
 }
 
