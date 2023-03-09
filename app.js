@@ -19,7 +19,7 @@ const lostSound = new Audio("./sound/alert.wav");
 
 const CARROT_COUNT = 5;
 const ITEM_SIZE = 50;
-const SECONDS = 5;
+const TIME = 5;
 
 let isPlaying = false;
 let isBugExisting = false;
@@ -30,16 +30,27 @@ let bugDivs = [];
 let carrotId = "";
 let carrot_catched = 0;
 
-let seconds = SECONDS;  //?
+let remainTime = TIME;
 
 
 //게임 시작
 const gameStart = () => {
+    remainTime = TIME;
+
     changePlayBtn();
     gameInit();
     isPlaying = true;
     carrotCountText.innerText = `${carrot_catched = 0}`;
     //카운트 다운 시작
+    countDownText.innerText = `0:${remainTime}`;
+    timer = setInterval(() => {
+        if (remainTime <= 0) {
+            gameOver();
+            clearInterval(timer);
+        } else {
+            countDownText.innerText = `0:${--remainTime}`;
+        }
+    }, 1000)
 }
 
 //게임 환경 조성
@@ -101,11 +112,12 @@ const gameOver = () => {
     if (CARROT_COUNT == carrot_catched) {
         messageBox_text.innerText = "You Won! 🎉";
         winSound.play();
+        clearInterval(timer);
     } else { //졌을 때
         messageBox_text.innerText = "You Lost! 😞";
         lostSound.play();
+        clearInterval(timer);
     }
-
 }
 
 const changePauseBtn = () => {
@@ -117,8 +129,6 @@ const changePauseBtn = () => {
 const onClickPauseBtn = () => {
     gameOver();
 }
-
-
 
 const onFieldClick = (event) => {
     if (!isPlaying) {
@@ -142,15 +152,6 @@ const onFieldClick = (event) => {
     }
 }
 
-
-
-const handleBugClick = () => {
-}
-
-const handleReplay = () => {
-    gameOver();
-}
-
 const musicPlay = () => {
     if (isMusicPlaying) {
         isMusicPlaying = false;
@@ -158,6 +159,7 @@ const musicPlay = () => {
         musicBtnIcon.classList.add("fa-music");
         console.log(isMusicPlaying);
         bgSound.pause();
+        bgSound.currentTime = 0;
     } else {
         bgSound.play();
         musicBtnIcon.classList.remove("fa-music");
