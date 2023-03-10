@@ -5,6 +5,7 @@ const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
 const replayBtn = document.querySelector(".replayBtn");
 const musicBtn = document.querySelector(".musicBtn");
 const musicBtnIcon = musicBtn.querySelector("i");
+const comfirmBtn = document.querySelector(".gameManual_confirm");
 
 const playBox = document.querySelector(".playBox");
 const messageBox = document.querySelector(".messageBox");
@@ -169,6 +170,13 @@ const musicPlay = () => {
     }
 }
 
+const clickConfirmBtn = () => {
+    const gameManual = document.querySelector(".gameManual");
+    gameManual.style.display = "none";
+    console.log("click!")
+}
+
+comfirmBtn.addEventListener("click", clickConfirmBtn)
 playBtn.addEventListener("click", gameStart);
 replayBtn.addEventListener("click", gameStart);
 pauseBtn.addEventListener("click", onClickPauseBtn);

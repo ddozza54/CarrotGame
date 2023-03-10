@@ -34,3 +34,4 @@
 
 
 - BG Music play & pause Btn 구현
+- 게임 메뉴얼 추가 
