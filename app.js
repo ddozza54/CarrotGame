@@ -5,7 +5,9 @@ const carrotCountText = document.querySelector(".controlBox_carrotCount_num");
 const replayBtn = document.querySelector(".replayBtn");
 const musicBtn = document.querySelector(".musicBtn");
 const musicBtnIcon = musicBtn.querySelector("i");
+
 const comfirmBtn = document.querySelector(".gameManual_confirm");
+const levelChoice = document.querySelector(".levelChoice");
 
 const playBox = document.querySelector(".playBox");
 const messageBox = document.querySelector(".messageBox");
@@ -18,7 +20,8 @@ const bugSound = new Audio("./sound/bug_pull.mp3");
 const winSound = new Audio("./sound/game_win.mp3");
 const lostSound = new Audio("./sound/alert.wav");
 
-const CARROT_COUNT = 5;
+let ITEM_COUNT = 5;
+const CARROT_COUNT = ITEM_COUNT;
 const ITEM_SIZE = 50;
 const TIME = 5;
 
@@ -76,7 +79,7 @@ const createItems = (itemName, itemDivs, itmes) => {
         itemImg.classList.add("gameItem");
         playBox.appendChild(itmes);
         itemDivs.push(itemImg);
-        const itemRangeArray = randomRange();
+        const itemRangeArray = randomRange(ITEM_COUNT);
         // 좌표 위치에 item 복사하기 
         itemImg.style.left = itemRangeArray[i][0] + "px";
         itemImg.style.top = itemRangeArray[i][1] + "px";
@@ -84,7 +87,7 @@ const createItems = (itemName, itemDivs, itmes) => {
     }
 }
 
-const randomRange = () => {
+const randomRange = (itemNumber) => {
     const playBoxX_min = Number(Math.ceil(playBox.getBoundingClientRect().x));
     const playBoxX_max = Number(Math.floor(playBox.getBoundingClientRect().right)) - ITEM_SIZE;
     const playBoxY_min = Number(Math.ceil(playBox.getBoundingClientRect().y));
@@ -93,8 +96,8 @@ const randomRange = () => {
     let xRandom = [];
     let yRandom = [];
     let cordinate = [];
-    // 랜덤으로 (x, y) 10 개 생성하기
-    for (let i = 0; i < 10; i++) {
+    // 랜덤으로 (x, y) n 개 생성하기
+    for (let i = 0; i < itemNumber; i++) {
         xRandom.push(Math.floor(Math.random() * (playBoxX_max - playBoxX_min) + playBoxX_min));
         yRandom.push(Math.floor(Math.random() * (playBoxY_max - playBoxY_min) + playBoxY_min));
         cordinate.push([xRandom[i], yRandom[i]]);
@@ -141,8 +144,7 @@ const onFieldClick = (event) => {
         carrotSound.play();
         carrot_catched++;
         carrotCountText.innerText = `${carrot_catched}`;
-        target.remove();
-        if (carrot_catched >= CARROT_COUNT) {
+        target.remove(); if (carrot_catched >= CARROT_COUNT) {
             gameOver();
         }
     } else if (target.matches(".bug")) {
@@ -152,6 +154,18 @@ const onFieldClick = (event) => {
         target.remove();
     }
 }
+const handleLevelChoice = (event) => {
+    const target = event.target;
+    if (target.matches(".level_easy")) {
+
+    } else if (target.matches(".level_medium")) {
+
+    }
+    else if (target.matches(".level_hard")) {
+
+    } else { return };
+}
+
 
 const musicPlay = () => {
     if (isMusicPlaying) {
@@ -176,7 +190,9 @@ const clickConfirmBtn = () => {
     console.log("click!")
 }
 
-comfirmBtn.addEventListener("click", clickConfirmBtn)
+comfirmBtn.addEventListener("click", clickConfirmBtn);
+levelChoice.addEventListener("click", handleLevelChoice)
+
 playBtn.addEventListener("click", gameStart);
 replayBtn.addEventListener("click", gameStart);
 pauseBtn.addEventListener("click", onClickPauseBtn);
