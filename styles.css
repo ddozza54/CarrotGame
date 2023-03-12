@@ -46,9 +46,6 @@ h1 {
     }
 }
 
-.gameManual button:hover {
-    animation: none;
-}
 
 button {
     width: 100px;
@@ -57,6 +54,11 @@ button {
     border-radius: 20px;
     background-color: antiquewhite;
     font-size: 50px;
+}
+
+.playBtn {
+    animation: size infinite 1s ease-in-out;
+
 }
 
 .gameManual button {
@@ -68,6 +70,13 @@ button {
 .gameManual div {
     display: flex;
     flex-direction: column;
+}
+
+.gameManual button:hover,
+.playBtn:hover {
+    animation: none;
+    background-color: orange;
+    transition: 0.1s ease-out;
 }
 
 .gameManual span {
@@ -97,12 +106,13 @@ button span {
     position: absolute;
     width: 700px;
     height: 500px;
-    background-color: antiquewhite;
-    border: 5px solid black;
+    background-color: rgba(1, 1, 1, 0.8);
+    color: white;
     border-radius: 20px;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 5;
 }
 
 .levelChoice_buttons {
@@ -112,9 +122,9 @@ button span {
     justify-content: space-around;
 }
 
-.levelChoice button {
+.level {
     font-size: 30px;
-    width: 200px;
+    width: 180px;
     padding: 5px;
     background-color: #8EB831;
 }
@@ -123,7 +133,7 @@ button span {
     background-color: orange;
     transform: scale(1.1, 1.1);
     cursor: pointer;
-    transition: 0.2s ease-in;
+    transition: 0.1s ease-out;
 }
 
 

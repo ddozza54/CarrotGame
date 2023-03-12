@@ -19,9 +19,13 @@ const carrotSound = new Audio("./sound/carrot_pull.mp3");
 const bugSound = new Audio("./sound/bug_pull.mp3");
 const winSound = new Audio("./sound/game_win.mp3");
 const lostSound = new Audio("./sound/alert.wav");
+const popSound = new Audio("./sound/pop_sound.wav");
+const mouseClickSound = new Audio("./sound/mouse_click.wav");
+mouseClickSound.playbackRate = 1.5;
+const startSound = new Audio('./sound/game_start.wav')
 
 let ITEM_COUNT = 5;
-const ITEM_SIZE = 50;
+const ITEM_SIZE = 80;
 let TIME = 5;
 
 let isPlaying = false;
@@ -39,7 +43,7 @@ let remainTime = TIME;
 //게임 시작
 const gameStart = () => {
     remainTime = TIME;
-
+    mouseClickSound.play();
     changePlayBtn();
     gameInit();
     isPlaying = true;
@@ -60,6 +64,7 @@ const gameStart = () => {
 const gameInit = () => {
     carrots.innerHTML = "";
     bugs.innerHTML = "";
+    levelChoice.classList.add('invisible');
     createItems('carrot', carrotDivs, carrots);
     createItems('bug', bugDivs, bugs);
 }
@@ -121,6 +126,8 @@ const gameOver = () => {
         lostSound.play();
         clearInterval(timer);
     }
+    levelChoice.classList.remove('invisible');
+
 }
 
 const changePauseBtn = () => {
@@ -155,6 +162,13 @@ const onFieldClick = (event) => {
 }
 const handleLevelChoice = (event) => {
     const target = event.target;
+    if (target.matches(".level")) {
+        startSound.play();
+        messageBox.classList.add("invisible");
+        carrots.innerHTML = "";
+        bugs.innerHTML = "";
+    }
+
     if (target.matches(".level_easy")) {
         console.log("easy!");
         ITEM_COUNT = 5;
@@ -168,13 +182,15 @@ const handleLevelChoice = (event) => {
     }
     else if (target.matches(".level_hard")) {
         console.log("hard!");
-        ITEM_COUNT = 15;
-        TIME = 10;
+        ITEM_COUNT = 25;
+        TIME = 15;
+        levelChoice.classList.add('invisible');
     } else { return; };
 }
 
 
 const musicPlay = () => {
+    mouseClickSound.play();
     if (isMusicPlaying) {
         isMusicPlaying = false;
         musicBtnIcon.classList.remove("fa-volume-xmark");
@@ -192,6 +208,7 @@ const musicPlay = () => {
 }
 
 const clickConfirmBtn = () => {
+    mouseClickSound.play();
     const gameManual = document.querySelector(".gameManual");
     gameManual.style.display = "none";
     levelChoice.classList.remove('invisible');
