@@ -27,7 +27,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.gameManual h1 {
+h1 {
     font-size: 50px;
     font-weight: 600;
 }
@@ -78,6 +78,7 @@ button {
 
 button:hover {
     transform: scale(1.1, 1.1);
+    cursor: pointer;
 }
 
 button span {
@@ -86,6 +87,45 @@ button span {
     justify-content: center;
     align-items: center;
 }
+
+
+.levelChoice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    background-color: antiquewhite;
+    border: 5px solid black;
+    border-radius: 20px;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.levelChoice_buttons {
+    margin: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.levelChoice button {
+    font-size: 30px;
+    width: 200px;
+    padding: 5px;
+    background-color: #8EB831;
+}
+
+.levelChoice button:hover {
+    background-color: orange;
+    transform: scale(1.1, 1.1);
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
 
 .soundBtnBox {
     width: 130px;

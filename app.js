@@ -21,9 +21,8 @@ const winSound = new Audio("./sound/game_win.mp3");
 const lostSound = new Audio("./sound/alert.wav");
 
 let ITEM_COUNT = 5;
-const CARROT_COUNT = ITEM_COUNT;
 const ITEM_SIZE = 50;
-const TIME = 5;
+let TIME = 5;
 
 let isPlaying = false;
 let isBugExisting = false;
@@ -72,7 +71,7 @@ const changePlayBtn = () => {
 }
 
 const createItems = (itemName, itemDivs, itmes) => {
-    for (let i = 0; i < CARROT_COUNT; i++) {
+    for (let i = 0; i < ITEM_COUNT; i++) {
         const itemImg = document.createElement("img");
         itemImg.src = `./img/${itemName}.png`;
         itemImg.setAttribute("class", `${itemName}`);
@@ -113,7 +112,7 @@ const gameOver = () => {
     changePauseBtn();
     let messageBox_text = document.querySelector(".messageBox_message")
     //이겼을 때
-    if (CARROT_COUNT == carrot_catched) {
+    if (ITEM_COUNT == carrot_catched) {
         messageBox_text.innerText = "You Won! 🎉";
         winSound.play();
         clearInterval(timer);
@@ -144,7 +143,7 @@ const onFieldClick = (event) => {
         carrotSound.play();
         carrot_catched++;
         carrotCountText.innerText = `${carrot_catched}`;
-        target.remove(); if (carrot_catched >= CARROT_COUNT) {
+        target.remove(); if (carrot_catched >= ITEM_COUNT) {
             gameOver();
         }
     } else if (target.matches(".bug")) {
@@ -157,13 +156,21 @@ const onFieldClick = (event) => {
 const handleLevelChoice = (event) => {
     const target = event.target;
     if (target.matches(".level_easy")) {
-
+        console.log("easy!");
+        ITEM_COUNT = 5;
+        TIME = 5;
+        levelChoice.classList.add('invisible');
     } else if (target.matches(".level_medium")) {
-
+        console.log("medium!");
+        ITEM_COUNT = 15;
+        TIME = 10;
+        levelChoice.classList.add('invisible');
     }
     else if (target.matches(".level_hard")) {
-
-    } else { return };
+        console.log("hard!");
+        ITEM_COUNT = 15;
+        TIME = 10;
+    } else { return; };
 }
 
 
@@ -187,6 +194,7 @@ const musicPlay = () => {
 const clickConfirmBtn = () => {
     const gameManual = document.querySelector(".gameManual");
     gameManual.style.display = "none";
+    levelChoice.classList.remove('invisible');
     console.log("click!")
 }
 
