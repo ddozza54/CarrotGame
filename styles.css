@@ -234,6 +234,7 @@ button span {
     height: 250px;
     border-radius: 50px;
     background-color: rgba(1, 1, 1, 0.5);
+    border: rgb(255, 138, 4) 6px solid;
     justify-content: space-evenly;
     position: absolute;
     z-index: 10;
