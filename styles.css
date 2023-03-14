@@ -1,7 +1,7 @@
 @import "./reset.css";
 
 body {
-    background-image: url("./img/background.png");
+    background-image: url("./img/bgImg.png");
     background-size: cover;
     width: 100vw;
     height: 100vh;
@@ -259,7 +259,13 @@ button span {
 .bug,
 .carrot {
     position: absolute;
+    width: 100px;
+    height: 100px;
+}
 
+.bug {
+    width: 50px;
+    height: 50px;
 }
 
 .bug:hover,
