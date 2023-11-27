@@ -25,7 +25,7 @@ mouseClickSound.playbackRate = 1.5;
 const startSound = new Audio('./sound/game_start.wav')
 
 let ITEM_COUNT = 5;
-const ITEM_SIZE = 80;
+const ITEM_SIZE = 100;
 let TIME = 5;
 
 let isPlaying = false;
@@ -67,6 +67,9 @@ const gameInit = () => {
     levelChoice.classList.add('invisible');
     createItems('carrot', carrotDivs, carrots);
     createItems('bug', bugDivs, bugs);
+    carrots.classList.remove('unclickale');
+    bugs.classList.remove('unclickale');
+
 }
 
 const changePlayBtn = () => {
@@ -116,6 +119,8 @@ const gameOver = () => {
     !isPlaying;
     changePauseBtn();
     let messageBox_text = document.querySelector(".messageBox_message")
+    carrots.classList.add('unclickale');
+    bugs.classList.add('unclickale');
     //이겼을 때
     if (ITEM_COUNT == carrot_catched) {
         messageBox_text.innerText = "You Won! 🎉";
