@@ -14,15 +14,15 @@ const messageBox = document.querySelector('.messageBox');
 const carrots = document.querySelector('.carrots');
 const bugs = document.querySelector('.bugs');
 //사운드 관련
-const bgSound = new Audio('./sound/bg.mp3');
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
-const winSound = new Audio('./sound/game_win.mp3');
-const lostSound = new Audio('./sound/alert.wav');
-const popSound = new Audio('./sound/pop_sound.wav');
-const mouseClickSound = new Audio('./sound/mouse_click.wav');
+// const bgSound = new Audio('./sound/bg.mp3');
+// const carrotSound = new Audio('./sound/carrot_pull.mp3');
+// const bugSound = new Audio('./sound/bug_pull.mp3');
+// const winSound = new Audio('./sound/game_win.mp3');
+// const lostSound = new Audio('./sound/alert.wav');
+// const popSound = new Audio('./sound/pop_sound.wav');
+// const mouseClickSound = new Audio('./sound/mouse_click.wav');
 mouseClickSound.playbackRate = 1.5;
-const startSound = new Audio('./sound/game_start.wav');
+// const startSound = new Audio('./sound/game_start.wav');
 
 let ITEM_COUNT = 5;
 const ITEM_SIZE = 80;
@@ -30,7 +30,7 @@ let TIME = 5;
 
 let isPlaying = false;
 let isBugExisting = false;
-let isMusicPlaying = false;
+// let isMusicPlaying = false;
 
 let carrotDivs = [];
 let bugDivs = [];
@@ -194,23 +194,23 @@ const handleLevelChoice = (event) => {
   }
 };
 
-const musicPlay = () => {
-  mouseClickSound.play();
-  if (isMusicPlaying) {
-    isMusicPlaying = false;
-    musicBtnIcon.classList.remove('fa-volume-xmark');
-    musicBtnIcon.classList.add('fa-music');
-    console.log(isMusicPlaying);
-    bgSound.pause();
-    bgSound.currentTime = 0;
-  } else {
-    bgSound.play();
-    musicBtnIcon.classList.remove('fa-music');
-    musicBtnIcon.classList.add('fa-volume-xmark');
-    isMusicPlaying = true;
-    console.log(isMusicPlaying);
-  }
-};
+// const musicPlay = () => {
+//   mouseClickSound.play();
+//   if (isMusicPlaying) {
+//     isMusicPlaying = false;
+//     musicBtnIcon.classList.remove('fa-volume-xmark');
+//     musicBtnIcon.classList.add('fa-music');
+//     console.log(isMusicPlaying);
+//     bgSound.pause();
+//     bgSound.currentTime = 0;
+//   } else {
+//     bgSound.play();
+//     musicBtnIcon.classList.remove('fa-music');
+//     musicBtnIcon.classList.add('fa-volume-xmark');
+//     isMusicPlaying = true;
+//     console.log(isMusicPlaying);
+//   }
+// };
 
 const clickConfirmBtn = () => {
   mouseClickSound.play();
@@ -228,4 +228,4 @@ replayBtn.addEventListener('click', gameStart);
 pauseBtn.addEventListener('click', onClickPauseBtn);
 
 playBox.addEventListener('click', onFieldClick);
-musicBtn.addEventListener('click', musicPlay);
+// musicBtn.addEventListener('click', musicPlay);
