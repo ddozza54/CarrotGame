@@ -6,7 +6,7 @@ const replayBtn = document.querySelector('.replayBtn');
 const musicBtn = document.querySelector('.musicBtn');
 const musicBtnIcon = musicBtn.querySelector('i');
 
-const gameManualOkBtn = document.querySelector('.gameManual_ok_btn');
+// const gameManualOkBtn = document.querySelector('.gameManual_ok_btn');
 const levelChoice = document.querySelector('.levelChoice');
 
 const playBox = document.querySelector('.playBox');
@@ -212,15 +212,15 @@ const handleLevelChoice = (event) => {
 //   }
 // };
 
-const clickConfirmBtn = () => {
-  mouseClickSound.play();
-  const gameManual = document.querySelector('.gameManual');
-  gameManual.style.display = 'none';
-  levelChoice.classList.remove('invisible');
-  console.log('click!');
-};
+// const clickConfirmBtn = () => {
+//   mouseClickSound.play();
+//   const gameManual = document.querySelector('.gameManual');
+//   gameManual.style.display = 'none';
+//   levelChoice.classList.remove('invisible');
+//   console.log('click!');
+// };
 
-gameManualOkBtn.addEventListener('click', clickConfirmBtn);
+// gameManualOkBtn.addEventListener('click', clickConfirmBtn);
 levelChoice.addEventListener('click', handleLevelChoice);
 
 playBtn.addEventListener('click', gameStart);
